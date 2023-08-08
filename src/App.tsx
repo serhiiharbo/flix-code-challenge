@@ -28,7 +28,7 @@ const App: React.FunctionComponent = observer(() => {
       <TableView store={store} />
 
       {/** Uncomment next line to see TableView component re-usability */}
-      <TableView store={store} />
+      {/*<TableView store={store} />*/}
     </>
   );
 });
