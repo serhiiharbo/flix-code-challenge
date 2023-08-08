@@ -1,5 +1,7 @@
+import { ImageRequireSource } from 'react-native/Libraries/Image/ImageSource';
+
 type TRequire = {
-  [key: string]: NodeRequire
+  [key: string]: ImageRequireSource
 }
 
 type TImages = {
@@ -11,6 +13,9 @@ export const IMAGES: TImages = {
     ASC: require('../assets/arrows-down.png'),
     DESC: require('../assets/arrows-up.png'),
     DEFAULT: require('../assets/arrows-default.png'),
+  },
+  ERROR: {
+    CELL: require('../assets/error.png'),
   },
 };
 

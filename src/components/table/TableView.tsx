@@ -14,12 +14,14 @@ type TKeys = {
   [key: string]: boolean;
 }
 export type TColumns = [keyof User];
-export type TColumnsState = [keyof User, React.Dispatch<React.SetStateAction<TColumns>>];
+
+type TColumnsState = [TColumns, React.Dispatch<React.SetStateAction<TColumns>>];
+type TSortedUsersState = [User[], React.Dispatch<React.SetStateAction<User[]>>];
 
 export const TableView: React.FunctionComponent = observer(() => {
   const store: TRootStore = useContext(AppContext);
-  const [columns, setColumns] = useState<TColumns>([] as unknown as TColumns);
-  const [sortedUsers, setSortedUsers] = useState<User[]>([]);
+  const [columns, setColumns]: TColumnsState = useState<TColumns>([] as unknown as TColumns);
+  const [sortedUsers, setSortedUsers]: TSortedUsersState = useState<User[]>([]);
 
   const {
     usersStore: { users, loading, errored },

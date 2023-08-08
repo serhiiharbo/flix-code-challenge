@@ -1,7 +1,8 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
+import { TableBodyCells } from './TableBodyCells';
 import { TColumns } from './TableView';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
@@ -32,14 +33,12 @@ export const TableBody: React.FunctionComponent<TableBodyProps> =
             {
               columns.map((columnName: keyof User, i: number) => {
                 return (
-                  <View
+                  <TableBodyCells
                     key={`${index} - ${i} - ${columnName} : ${item[columns?.[i]]}`}
-                    style={[styles.rowCell, { borderRightWidth: i === 0 ? 0 : 1 }]}
-                  >
-                    <Text style={styles.text}>
-                      {`${item[columnName]}`}
-                    </Text>
-                  </View>
+                    item={item}
+                    i={i}
+                    columnName={columnName}
+                  />
                 );
               })
             }
@@ -51,6 +50,7 @@ export const TableBody: React.FunctionComponent<TableBodyProps> =
 const styles: TStyle = StyleSheet.create<TStyle>({
   flatListContainer: {
     flexGrow: 1,
+    marginTop: -1,
   },
   rowContainer: {
     flex: 1,
@@ -60,14 +60,15 @@ const styles: TStyle = StyleSheet.create<TStyle>({
     minHeight: 50,
 
     borderColor: 'black',
-    borderWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
   },
   rowCell: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'black',
-    borderWidth: 1,
   },
   text: {
     fontSize: 20,
