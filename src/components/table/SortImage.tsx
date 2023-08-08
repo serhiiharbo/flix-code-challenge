@@ -1,27 +1,22 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
-import { EOrderBy } from '../../api/cache/CacheSort';
+import { EOrderBy, TSort } from '../../types/shared.types';
 import { Icon } from '../icon/Icon';
 import { IMAGES } from '../../constants';
-import { SortStore } from '../../store/SortStore';
 import { User } from '../../api/HttpClient';
 
 type TSortImageProps = {
-  sortStore: SortStore;
   columnName: keyof User;
+  sortParams: TSort,
 };
 
 export const SortImage: React.FunctionComponent<TSortImageProps> =
-  observer(({
-              sortStore,
-              columnName,
-            }: TSortImageProps) => {
-    if (sortStore.sortBy !== columnName) {
+  ({ columnName, sortParams }: TSortImageProps) => {
+    if (sortParams.sortBy !== columnName) {
       return <Icon source={IMAGES.SORT.DEFAULT} />;
     }
 
-    switch (sortStore.orderBy) {
+    switch (sortParams.orderBy) {
       case EOrderBy.ASC:
         return <Icon source={IMAGES.SORT.ASC} />;
       case EOrderBy.DESC:
@@ -29,7 +24,4 @@ export const SortImage: React.FunctionComponent<TSortImageProps> =
       default:
         return <Icon source={IMAGES.SORT.DEFAULT} />;
     }
-  });
-
-
-
+  };

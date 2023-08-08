@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { CacheUsers } from './cache/CacheUsers';
+import { CacheUsers } from './CacheUsers';
 import { User } from './HttpClient';
 
 interface TApi {

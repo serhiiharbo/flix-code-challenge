@@ -1,39 +1,58 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-import { AppContext } from '../../context/AppContext';
-import { EOrderBy } from '../../api/cache/CacheSort';
-import { SortStore } from '../../store/SortStore';
+import { EOrderBy, TColumns, TSort, TStyle } from '../../types/shared.types';
 import { TableBody } from './TableBody';
 import { TableHeader } from './TableHeader';
 import { TRootStore } from '../../store';
-import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
 import { UsersStore } from '../../store/UsersStore';
 
+type TTableViewProps = {
+  store: TRootStore
+}
 type TKeys = {
   [key: string]: boolean;
 }
-export type TColumns = [keyof User];
-
 type TColumnsState = [TColumns, React.Dispatch<React.SetStateAction<TColumns>>];
 type TSortedUsersState = [User[], React.Dispatch<React.SetStateAction<User[]>>];
+type TSortParamsState = [TSort, React.Dispatch<React.SetStateAction<TSort>>];
 
-export const TableView: React.FunctionComponent = observer(() => {
-  const store: TRootStore = useContext(AppContext);
+export const TableView: React.FunctionComponent<TTableViewProps> = observer(({ store }: TTableViewProps) => {
   const [columns, setColumns]: TColumnsState = useState<TColumns>([] as unknown as TColumns);
   const [sortedUsers, setSortedUsers]: TSortedUsersState = useState<User[]>([]);
+  const [sortParams, setSortParams]: TSortParamsState = useState<TSort>({});
 
-  const { usersStore, sortStore }: TRootStore = store;
+  const { sortBy, orderBy }: TSort = sortParams;
+
+  const { usersStore }: TRootStore = store;
   const { users }: UsersStore = usersStore;
-  const { sortBy, orderBy }: SortStore = sortStore;
 
-  useEffect((): void => {
-    store.usersStore.getUsers();
-    store.sortStore.getSort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Set sort parameters to state
+  const setSort = async (columnName: keyof User): Promise<void> => {
+    try {
+      const newSortParams: TSort = {
+        // Set new Column name to Sort By
+        sortBy: columnName,
+      };
+
+      // Case 1: same column header pressed -> toggle orderBy
+      if (columnName === sortBy) {
+        // Toggle order by ASC <-> DESC
+        // undefined is initial value to check the very first sortBy change
+        newSortParams.orderBy = orderBy === EOrderBy.ASC || orderBy === undefined
+          ? EOrderBy.DESC
+          : EOrderBy.ASC;
+      } else {
+        // Case 2: new column header pressed -> set ASC as default orderBy value
+        newSortParams.orderBy = EOrderBy.ASC;
+      }
+
+      return setSortParams(newSortParams);
+    } catch (e: unknown) {
+    }
+  };
 
   // Create header columns names list
   useEffect((): void => {
@@ -79,15 +98,19 @@ export const TableView: React.FunctionComponent = observer(() => {
 
   return (
     <View style={styles.container}>
-      <TableHeader columns={columns} />
+      <TableHeader
+        columns={columns}
+        sortParams={sortParams}
+        setSort={setSort}
+      />
       <TableBody
         columns={columns}
         users={sortedUsers}
-        sortStore={sortStore}
+        sortParams={sortParams}
       />
     </View>
   );
 });
 
 
-const styles: TStyle = StyleSheet.create<TStyle>({ container: { flexGrow: 1 } });
+const styles: TStyle = StyleSheet.create<TStyle>({ container: { flexGrow: 1, marginBottom: 40 } });

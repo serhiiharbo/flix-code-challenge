@@ -1,18 +1,16 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ImageStyle, Pressable, StyleSheet, Text, ViewStyle } from 'react-native';
-import { observer } from 'mobx-react-lite';
 
 import { Icon } from '../icon/Icon';
 import { IMAGES } from '../../constants';
-import { SortStore } from '../../store/SortStore';
-import { TStyle } from '../../types/shared.types';
+import { TSort, TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
 
-interface ITableBodyCellsProptypes {
+interface ITableBodyCellsProps {
   columnName: keyof User,
   i: number,
   item: User
-  sortStore: SortStore,
+  sortParams: TSort,
 }
 
 type TErrorState = [boolean, Dispatch<SetStateAction<boolean>>]
@@ -20,10 +18,10 @@ type TImageStyles = {
   icon: ImageStyle,
 }
 
-export const TableBodyCells: React.FunctionComponent<ITableBodyCellsProptypes> =
-  observer(({ columnName, i, item, sortStore }: ITableBodyCellsProptypes) => {
+export const TableBodyCells: React.FunctionComponent<ITableBodyCellsProps> =
+  ({ columnName, i, item, sortParams }: ITableBodyCellsProps) => {
     const [error, setError]: TErrorState = useState<boolean>(false);
-    const { sortBy, orderBy }: SortStore = sortStore;
+    const { sortBy, orderBy }: TSort = sortParams;
 
     useEffect(() => {
       setError(false);
@@ -49,7 +47,7 @@ export const TableBodyCells: React.FunctionComponent<ITableBodyCellsProptypes> =
         </Text>
       </Pressable>
     );
-  });
+  };
 
 const styles: TStyle = StyleSheet.create({
   rowCell: {

@@ -4,7 +4,7 @@ import { API } from '../api/Api';
 import { User } from '../api/HttpClient';
 
 interface IUsersStore {
-  users?: User[];
+  users: User[];
   loading: boolean;
   errored: boolean;
 
@@ -13,7 +13,6 @@ interface IUsersStore {
 
 export class UsersStore implements IUsersStore {
   users: User[] = [];
-
   loading: boolean = true;
   errored: boolean = false;
 

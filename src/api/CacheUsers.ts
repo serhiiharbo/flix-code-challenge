@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ASKeys } from '../constants';
-import { CacheTtl } from './CacheTtl';
-import { HttpClient, User } from '../HttpClient';
+import { EASKeys } from '../types/shared.types';
+import { HttpClient, User } from './HttpClient';
+import { PersistTtl } from './PersistTtl';
 
-export class CacheUsers extends CacheTtl {
-  private static readonly usersKey: string = ASKeys.Users;
+export class CacheUsers extends PersistTtl {
+  private static readonly usersKey: string = EASKeys.Users;
 
   private static async setUsersToAsyncStorage(users: User[]): Promise<void> {
     try {

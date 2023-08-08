@@ -5,12 +5,12 @@ import { GestureResponderEvent } from 'react-native/Libraries/Types/CoreEventTyp
 
 import { backgroundColor } from '../../constants';
 
-type TButtonProperties = {
+type TButtonProps = {
   label: string,
   onPress?: null | ((event: GestureResponderEvent) => void) | undefined,
 }
 
-export const Button = ({ label, onPress }: TButtonProperties) => {
+export const Button = ({ label, onPress }: TButtonProps) => {
 
   return (<Pressable
     style={({ pressed }: PressableStateCallbackType) => [

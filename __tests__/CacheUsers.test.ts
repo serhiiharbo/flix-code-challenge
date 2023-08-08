@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ASKeys } from '../src/api/constants';
-import { CacheUsers } from '../src/api/cache/CacheUsers';
+import { CacheUsers } from '../src/api/CacheUsers';
+import { EASKeys } from '../src/types/shared.types';
 import { HttpClient, User } from '../src/api/HttpClient';
 
 // TASK: Write a few tests to make sure your caching mechanism works as intended
@@ -114,7 +114,7 @@ describe('CacheUsers: check CacheUsers.isTTLExpired when AS returns expired TTL'
     async (): Promise<void> => {
       // Set expired TTL to AsyncStorage
       const expiredTtlStamp: string = (Date.now() as number - 100).toString();
-      await AsyncStorage.setItem(ASKeys.Ttl, expiredTtlStamp);
+      await AsyncStorage.setItem(EASKeys.Ttl, expiredTtlStamp);
 
       const isTTLExpired: boolean = await cacheUsersProto.constructor.isTTLExpired();
 

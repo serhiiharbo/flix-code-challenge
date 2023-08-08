@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { CacheTtl } from '../api/cache/CacheTtl';
+import { PersistTtl } from '../api/PersistTtl';
 import { NO_TTL } from '../constants';
 
 export class TtlStore {
@@ -12,7 +12,7 @@ export class TtlStore {
 
   public async getTtl(): Promise<void> {
     try {
-      const ttl: number | null = await CacheTtl.getTTL();
+      const ttl: number | null = await PersistTtl.getTTL();
 
       runInAction((): void => {
         this.ttl = Number.isInteger(ttl) ? (new Date(ttl)).toTimeString() : NO_TTL;
