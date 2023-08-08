@@ -1,9 +1,11 @@
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
-import { TableView } from './components/TableView';
 
-type HexColor = `#${string}`
-const backgroundColor: HexColor = '#73d700';
+import { API } from './api';
+import { backgroundColor } from './constants/assets.constants';
+import { Button } from './components/button/Button';
+import { TableView } from './components/table/TableView';
+
 
 const App = (): React.JSX.Element => {
   return (
@@ -11,6 +13,10 @@ const App = (): React.JSX.Element => {
       <StatusBar
         barStyle={'dark-content'}
         backgroundColor={backgroundColor}
+      />
+      <Button
+        label={'Clear AsyncStorage'}
+        onPress={API.clearAsyncStorage}
       />
       <TableView />
     </SafeAreaView>

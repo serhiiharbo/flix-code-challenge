@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import { TableHeaderCell } from './TableHeaderCell';
 import { TColumns } from './TableView';
-import { User } from '../api/HttpClient';
-import { TStyle } from '../types/shared.types';
+import { TStyle } from '../../types/shared.types';
+import { User } from '../../api/HttpClient';
 
 type TableHeaderProps = {
   columns: TColumns;

@@ -2,10 +2,10 @@ import React from 'react';
 import { Image, ImageStyle, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-import { EOrderBy } from '../api/CacheSort';
-import { IMAGES } from '../constants/assets.constants';
-import { SortStore } from '../store/SortStore';
-import { User } from '../api/HttpClient';
+import { EOrderBy } from '../../api/CacheSort';
+import { IMAGES } from '../../constants/assets.constants';
+import { SortStore } from '../../store/SortStore';
+import { User } from '../../api/HttpClient';
 
 type SortImageProps = {
   sortStore: SortStore;

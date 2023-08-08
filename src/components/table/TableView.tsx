@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-import { AppContext } from '../context/AppContext';
-import { EOrderBy } from '../api/CacheSort';
+import { AppContext } from '../../context/AppContext';
+import { EOrderBy } from '../../api/CacheSort';
 import { TableBody } from './TableBody';
 import { TableHeader } from './TableHeader';
-import { TRootStore } from '../store';
-import { User } from '../api/HttpClient';
-import { TStyle } from '../types/shared.types';
+import { TRootStore } from '../../store';
+import { TStyle } from '../../types/shared.types';
+import { User } from '../../api/HttpClient';
 
 type TKeys = {
   [key: string]: boolean;
@@ -51,26 +51,32 @@ export const TableView: React.FunctionComponent = observer(() => {
 
   // Sort users by field and order
   useEffect((): void => {
-    const newSortedUsersList: User[] = [...users].sort((u1: User, u2: User): number => {
-      const val1: User[keyof User] = u1[sortBy];
-      const val2: User[keyof User] = u2[sortBy];
+    // Check do we have sorting properties before sorting users
+    if (sortBy && orderBy) {
+      const newSortedUsersList: User[] = [...users].sort((u1: User, u2: User): number => {
+        const val1: User[keyof User] = u1[sortBy];
+        const val2: User[keyof User] = u2[sortBy];
 
-      if (Number.isInteger(val1) && Number.isInteger(val2)) {
-        return (orderBy === EOrderBy.ASC) ?
-          (val1 as number) - (val2 as number) :
-          (val2 as number) - (val1 as number);
-      } else {
-        return (orderBy === EOrderBy.ASC) ?
-          (val1 as string).localeCompare(val2 as string) :
-          (val2 as string).localeCompare(val1 as string);
-      }
-    });
+        if (Number.isInteger(val1) && Number.isInteger(val2)) {
+          return (orderBy === EOrderBy.ASC) ?
+            (val1 as number) - (val2 as number) :
+            (val2 as number) - (val1 as number);
+        } else {
+          return (orderBy === EOrderBy.ASC) ?
+            (val1 as string).localeCompare(val2 as string) :
+            (val2 as string).localeCompare(val1 as string);
+        }
+      });
 
-    setSortedUsers(newSortedUsersList);
+      setSortedUsers(newSortedUsersList);
+    } else {
+      // Set users 'as is' if no sorting props present
+      setSortedUsers(users);
+    }
   }, [users, sortBy, orderBy]);
 
   return (
-    <View style={styles.table}>
+    <View style={styles.container}>
       <TableHeader columns={columns} />
       <TableBody
         columns={columns}
@@ -81,5 +87,5 @@ export const TableView: React.FunctionComponent = observer(() => {
 });
 
 
-const styles: TStyle = StyleSheet.create<TStyle>({ table: { flexGrow: 1 } });
+const styles: TStyle = StyleSheet.create<TStyle>({ container: { flexGrow: 1 } });
 

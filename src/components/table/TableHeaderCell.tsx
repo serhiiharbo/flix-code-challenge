@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import { SortImage } from './SortImage';
-import { SortStore } from '../store/SortStore';
-import { TRootStore } from '../store';
-import { User } from '../api/HttpClient';
-import { TStyle } from '../types/shared.types';
+import { SortStore } from '../../store/SortStore';
+import { TRootStore } from '../../store';
+import { TStyle } from '../../types/shared.types';
+import { User } from '../../api/HttpClient';
 
 type TableHeaderCellProps = {
   columnName: keyof User;

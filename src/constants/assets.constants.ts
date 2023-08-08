@@ -13,3 +13,6 @@ export const IMAGES: TImages = {
     DEFAULT: require('../assets/arrows-default.png'),
   },
 };
+
+type HexColor = `#${string}`
+export const backgroundColor: HexColor = '#73d700';

@@ -3,8 +3,8 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { TColumns } from './TableView';
-import { User } from '../api/HttpClient';
-import { TStyle } from '../types/shared.types';
+import { TStyle } from '../../types/shared.types';
+import { User } from '../../api/HttpClient';
 
 type TableBodyProps = {
   columns: TColumns;
@@ -26,7 +26,7 @@ export const TableBody: React.FunctionComponent<TableBodyProps> =
       <FlatList
         data={users}
         contentContainerStyle={styles.flatListContainer}
-        keyExtractor={(item: User, index: number) => `${index} - ${item[columns?.[0]]}`}
+        keyExtractor={(item: User, index: number): string => `${index} - ${item[columns?.[0]]}`}
         renderItem={({ item, index }: RenderItemParams) => (
           <View style={styles.rowContainer}>
             {
