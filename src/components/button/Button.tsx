@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
-import { backgroundColor } from '../../constants/assets.constants';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import { PressableStateCallbackType } from 'react-native/Libraries/Components/Pressable/Pressable';
 import { GestureResponderEvent } from 'react-native/Libraries/Types/CoreEventTypes';
+
+import { backgroundColor } from '../../constants';
 
 type TButtonProperties = {
   label: string,

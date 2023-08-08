@@ -19,7 +19,7 @@ export const IMAGES: TImages = {
   },
 };
 
-type HexColor = `#${string}`
-export const backgroundColor: HexColor = '#73d700';
+type THexColor = `#${string}`
+export const backgroundColor: THexColor = '#73d700';
 
 export const NO_TTL: string = 'No TTL so far';

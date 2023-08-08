@@ -3,13 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { AppContext } from '../../context/AppContext';
-import { EOrderBy } from '../../api/CacheSort';
+import { EOrderBy } from '../../api/cache/CacheSort';
+import { SortStore } from '../../store/SortStore';
 import { TableBody } from './TableBody';
 import { TableHeader } from './TableHeader';
 import { TRootStore } from '../../store';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
-import { SortStore } from '../../store/SortStore';
 import { UsersStore } from '../../store/UsersStore';
 
 type TKeys = {

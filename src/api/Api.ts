@@ -1,9 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { CacheUsers } from './CacheUsers';
+import { CacheUsers } from './cache/CacheUsers';
 import { User } from './HttpClient';
 
-class Api extends CacheUsers {
+interface TApi {
+  getUsers(): Promise<User[]>,
+
+  clearAsyncStorage(): Promise<void>
+}
+
+class Api extends CacheUsers implements TApi {
   public async getUsers(): Promise<User[]> {
     return await Api.getUsersRoutine();
   }

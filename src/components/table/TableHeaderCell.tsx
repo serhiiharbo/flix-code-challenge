@@ -9,16 +9,16 @@ import { TRootStore } from '../../store';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
 
-type TableHeaderCellProps = {
+type TTableHeaderCellProps = {
   columnName: keyof User;
   index: number
 };
 
-export const TableHeaderCell: React.FunctionComponent<TableHeaderCellProps> =
+export const TableHeaderCell: React.FunctionComponent<TTableHeaderCellProps> =
   observer(({
               columnName,
               index,
-            }: TableHeaderCellProps) => {
+            }: TTableHeaderCellProps) => {
     const store: TRootStore = useContext(AppContext);
     const sortStore: SortStore = store.sortStore;
 

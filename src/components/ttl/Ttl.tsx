@@ -3,22 +3,20 @@ import { StyleSheet, Text } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { AppContext } from '../../context/AppContext';
-import { backgroundColor } from '../../constants/assets.constants';
+import { backgroundColor } from '../../constants';
 import { TRootStore } from '../../store';
 import { TStyle } from '../../types/shared.types';
 
 export const Tll: React.FunctionComponent<object> = observer(() => {
   const store: TRootStore = useContext(AppContext);
 
-  // TTL will be set after loading users
+  // TTL will be set in AsyncStorage after finish loading users
   useEffect((): void => {
     if (store?.usersStore?.loading === false) {
       store?.ttlStore?.getTtl();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store?.usersStore?.loading]);
-
-  console.log('users from ttl comp', store.usersStore.errored, store.usersStore.users.length);
 
   return (
     <Text style={styles.text}>Cache expires at: {store?.ttlStore?.ttl}</Text>

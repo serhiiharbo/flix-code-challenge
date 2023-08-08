@@ -1,9 +1,10 @@
-import { CacheUsers } from '../src/api/CacheUsers';
-import { HttpClient, User } from '../src/api/HttpClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ASKeys } from '../src/api/constants';
 
-// TODO: Write a few tests to make sure your caching mechanism works as intended
+import { ASKeys } from '../src/api/constants';
+import { CacheUsers } from '../src/api/cache/CacheUsers';
+import { HttpClient, User } from '../src/api/HttpClient';
+
+// TASK: Write a few tests to make sure your caching mechanism works as intended
 
 describe('CacheUsers: check methods', (): void => {
   const cacheUsers: CacheUsers = new CacheUsers();

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ASKeys } from './constants';
+import { ASKeys } from '../constants';
 
 export class CacheTtl {
   static readonly #ttlKey: string = ASKeys.Ttl;
@@ -38,9 +38,6 @@ export class CacheTtl {
   protected static async isTTLExpired(): Promise<boolean> {
     const now: number = Date.now();
     const ttlStamp: number = await CacheTtl.getTTL();
-
-    console.log({ ttlStamp, now, 'now > ttlStamp': now > ttlStamp });
-
 
     return Promise.resolve(now > ttlStamp);
   }

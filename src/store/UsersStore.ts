@@ -1,13 +1,21 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
+import { API } from '../api/Api';
 import { User } from '../api/HttpClient';
-import { API } from '../api';
 
-export class UsersStore {
-  users?: User[] = [];
+interface IUsersStore {
+  users?: User[];
+  loading: boolean;
+  errored: boolean;
 
-  loading?: boolean = true;
-  errored?: boolean = false;
+  getUsers(): Promise<void>;
+}
+
+export class UsersStore implements IUsersStore {
+  users: User[] = [];
+
+  loading: boolean = true;
+  errored: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,12 +24,9 @@ export class UsersStore {
   async getUsers(): Promise<void> {
     try {
       this.loading = true;
-      console.log(1, 'API GET USERS');
-
       const users: User[] = await API.getUsers();
 
       runInAction((): void => {
-        console.log(1, 'RUN IN ACTION', users);
         this.users = users;
         this.loading = false;
       });

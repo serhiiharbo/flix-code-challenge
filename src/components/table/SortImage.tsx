@@ -1,22 +1,22 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { EOrderBy } from '../../api/CacheSort';
-import { IMAGES } from '../../constants/assets.constants';
+import { EOrderBy } from '../../api/cache/CacheSort';
+import { Icon } from '../icon/Icon';
+import { IMAGES } from '../../constants';
 import { SortStore } from '../../store/SortStore';
 import { User } from '../../api/HttpClient';
-import { Icon } from '../icon/Icon';
 
-type SortImageProps = {
+type TSortImageProps = {
   sortStore: SortStore;
   columnName: keyof User;
 };
 
-export const SortImage: React.FunctionComponent<SortImageProps> =
+export const SortImage: React.FunctionComponent<TSortImageProps> =
   observer(({
               sortStore,
               columnName,
-            }: SortImageProps) => {
+            }: TSortImageProps) => {
     if (sortStore.sortBy !== columnName) {
       return <Icon source={IMAGES.SORT.DEFAULT} />;
     }

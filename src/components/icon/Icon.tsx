@@ -4,9 +4,9 @@ import { ImageRequireSource } from 'react-native/Libraries/Image/ImageSource';
 
 export const Icon: React.ElementType<TIconProperties> = ({ source, styles }: TIconProperties) => (
   <Image
+    resizeMode={'center'}
     source={source}
     style={[defaultIconStyles.image, styles]}
-    resizeMode={'center'}
   />
 );
 

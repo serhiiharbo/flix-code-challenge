@@ -1,25 +1,24 @@
-import { UsersStore } from './UsersStore';
 import { SortStore } from './SortStore';
 import { TtlStore } from './TtlStore';
+import { UsersStore } from './UsersStore';
 
 export type TRootStore = {
+  sortStore: SortStore;
   ttlStore: TtlStore;
   usersStore: UsersStore;
-  sortStore: SortStore;
 }
 
 export class RootStore implements TRootStore {
+  sortStore: SortStore;
   ttlStore: TtlStore;
   usersStore: UsersStore;
-  sortStore: SortStore;
 
 
   constructor() {
+    this.sortStore = new SortStore();
     this.ttlStore = new TtlStore();
     this.usersStore = new UsersStore();
-    this.sortStore = new SortStore();
   }
 }
 
-export default new RootStore();
-
+export default new RootStore(); // export singleton

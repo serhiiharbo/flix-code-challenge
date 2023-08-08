@@ -1,11 +1,18 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { CacheSort, EOrderBy, TSort } from '../api/CacheSort';
+
+import { CacheSort, EOrderBy, TSort } from '../api/cache/CacheSort';
 import { User } from '../api/HttpClient';
 
-// type UserKeys<Type> = keyof Type;
-// type UserKeys = keyof User;
+interface ISortStore {
+  sortBy: keyof User;
+  orderBy: keyof typeof EOrderBy;
 
-export class SortStore {
+  getSort(): Promise<void>;
+
+  setSort(columnName: keyof User): Promise<void>;
+}
+
+export class SortStore implements ISortStore {
   // We must assign properties to a value, otherwise makeAutoObservable want make them observable
   sortBy: keyof User = undefined;
   orderBy: keyof typeof EOrderBy = undefined;
@@ -16,12 +23,9 @@ export class SortStore {
 
   public async getSort(): Promise<void> {
     try {
-      console.log(11, 'GET SORT');
-
       const sort: TSort = await CacheSort.getSortFromAsyncStorage();
 
       runInAction(() => {
-        console.log(22, 'RUN IN ACTION: SORT', sort);
         this.sortBy = sort.sortBy;
         this.orderBy = sort.orderBy;
       });
@@ -35,7 +39,6 @@ export class SortStore {
 
   public async setSort(columnName: keyof User): Promise<void> {
     try {
-      console.log(112, 'SET SORT');
       const newSortParams: TSort = {
         // Set new Column name to Sort By
         sortBy: columnName,

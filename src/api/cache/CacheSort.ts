@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ASKeys } from './constants';
-import { User } from './HttpClient';
+import { ASKeys } from '../constants';
+import { User } from '../HttpClient';
 
 export enum EOrderBy {
   ASC = 'ASC',
@@ -22,7 +22,6 @@ export class CacheSort {
   private static readonly sortKey: string = ASKeys.SortBy;
 
   public static async setSortToAsyncStorage(sortBy: TSort): Promise<void> {
-    // console.log(444, 'setSortToAsyncStorage', sortBy);
     try {
       await AsyncStorage.setItem(CacheSort.sortKey, JSON.stringify(sortBy));
     } catch (e: unknown) {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { AppContext } from './context/AppContext';
+
+import rootStore from './store';
 import { App } from './App';
-import rootStore from './store/index';
+import { AppContext } from './context/AppContext';
 
 function Root(): React.ReactNode {
   return (

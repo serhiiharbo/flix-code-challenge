@@ -1,8 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 
-import { API } from './api';
-import { backgroundColor } from './constants/assets.constants';
+import { API } from './api/Api';
+import { backgroundColor } from './constants';
 import { Button } from './components/button/Button';
 import { TableView } from './components/table/TableView';
 import { Tll } from './components/ttl/Ttl';

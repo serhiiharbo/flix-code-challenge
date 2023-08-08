@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { CacheTtl } from '../api/CacheTtl';
-import { NO_TTL } from '../constants/assets.constants';
+
+import { CacheTtl } from '../api/cache/CacheTtl';
+import { NO_TTL } from '../constants';
 
 export class TtlStore {
   ttl: string = NO_TTL;
@@ -11,17 +12,10 @@ export class TtlStore {
 
   public async getTtl(): Promise<void> {
     try {
-      console.log('GET TTL');
-
       const ttl: number | null = await CacheTtl.getTTL();
 
       runInAction((): void => {
-        if (Number.isInteger(ttl)) {
-          // console.log('RUN IN ACTION: TTL', ttl, (new Date(ttl)).toTimeString());
-          this.ttl = (new Date(ttl)).toTimeString();
-        } else {
-          this.ttl = NO_TTL;
-        }
+        this.ttl = Number.isInteger(ttl) ? (new Date(ttl)).toTimeString() : NO_TTL;
       });
     } catch (e: unknown) {
       runInAction((): void => {

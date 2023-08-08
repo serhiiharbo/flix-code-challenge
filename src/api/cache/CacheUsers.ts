@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ASKeys } from './constants';
+import { ASKeys } from '../constants';
 import { CacheTtl } from './CacheTtl';
-import { HttpClient, User } from './HttpClient';
+import { HttpClient, User } from '../HttpClient';
 
 export class CacheUsers extends CacheTtl {
   private static readonly usersKey: string = ASKeys.Users;

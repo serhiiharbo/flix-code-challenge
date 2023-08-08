@@ -3,12 +3,12 @@ import { ImageStyle, Pressable, StyleSheet, Text, ViewStyle } from 'react-native
 import { observer } from 'mobx-react-lite';
 
 import { Icon } from '../icon/Icon';
-import { IMAGES } from '../../constants/assets.constants';
+import { IMAGES } from '../../constants';
+import { SortStore } from '../../store/SortStore';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
-import { SortStore } from '../../store/SortStore';
 
-interface TableBodyCellsProptypes {
+interface ITableBodyCellsProptypes {
   columnName: keyof User,
   i: number,
   item: User
@@ -16,9 +16,12 @@ interface TableBodyCellsProptypes {
 }
 
 type TErrorState = [boolean, Dispatch<SetStateAction<boolean>>]
+type TImageStyles = {
+  icon: ImageStyle,
+}
 
-export const TableBodyCells: React.FunctionComponent<TableBodyCellsProptypes> =
-  observer(({ columnName, i, item, sortStore }: TableBodyCellsProptypes) => {
+export const TableBodyCells: React.FunctionComponent<ITableBodyCellsProptypes> =
+  observer(({ columnName, i, item, sortStore }: ITableBodyCellsProptypes) => {
     const [error, setError]: TErrorState = useState<boolean>(false);
     const { sortBy, orderBy }: SortStore = sortStore;
 
@@ -66,10 +69,6 @@ const styles: TStyle = StyleSheet.create({
     width: 25,
   } as ImageStyle,
 });
-
-type TImageStyles = {
-  icon: ImageStyle,
-}
 
 const imageStyle: TImageStyles = StyleSheet.create<TImageStyles>({
   icon: {
