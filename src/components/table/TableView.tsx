@@ -9,6 +9,8 @@ import { TableHeader } from './TableHeader';
 import { TRootStore } from '../../store';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
+import { SortStore } from '../../store/SortStore';
+import { UsersStore } from '../../store/UsersStore';
 
 type TKeys = {
   [key: string]: boolean;
@@ -23,11 +25,9 @@ export const TableView: React.FunctionComponent = observer(() => {
   const [columns, setColumns]: TColumnsState = useState<TColumns>([] as unknown as TColumns);
   const [sortedUsers, setSortedUsers]: TSortedUsersState = useState<User[]>([]);
 
-  const {
-    usersStore: { users, loading, errored },
-    sortStore: { sortBy, orderBy },
-  }: TRootStore = store;
-  // const
+  const { usersStore, sortStore }: TRootStore = store;
+  const { users }: UsersStore = usersStore;
+  const { sortBy, orderBy }: SortStore = sortStore;
 
   useEffect((): void => {
     store.usersStore.getUsers();
@@ -83,6 +83,7 @@ export const TableView: React.FunctionComponent = observer(() => {
       <TableBody
         columns={columns}
         users={sortedUsers}
+        sortStore={sortStore}
       />
     </View>
   );
@@ -90,4 +91,3 @@ export const TableView: React.FunctionComponent = observer(() => {
 
 
 const styles: TStyle = StyleSheet.create<TStyle>({ container: { flexGrow: 1 } });
-

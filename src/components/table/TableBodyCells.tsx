@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ImageStyle, Pressable, StyleSheet, Text, ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
@@ -6,18 +6,25 @@ import { Icon } from '../icon/Icon';
 import { IMAGES } from '../../constants/assets.constants';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
+import { SortStore } from '../../store/SortStore';
 
 interface TableBodyCellsProptypes {
   columnName: keyof User,
   i: number,
   item: User
+  sortStore: SortStore,
 }
 
 type TErrorState = [boolean, Dispatch<SetStateAction<boolean>>]
 
 export const TableBodyCells: React.FunctionComponent<TableBodyCellsProptypes> =
-  observer(({ columnName, i, item }: TableBodyCellsProptypes) => {
+  observer(({ columnName, i, item, sortStore }: TableBodyCellsProptypes) => {
     const [error, setError]: TErrorState = useState<boolean>(false);
+    const { sortBy, orderBy }: SortStore = sortStore;
+
+    useEffect(() => {
+      setError(false);
+    }, [sortBy, orderBy]);
 
     const pressableStyles: (ViewStyle | ImageStyle)[] = [
       styles.rowCell,

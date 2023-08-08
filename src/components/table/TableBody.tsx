@@ -6,9 +6,11 @@ import { TableBodyCells } from './TableBodyCells';
 import { TColumns } from './TableView';
 import { TStyle } from '../../types/shared.types';
 import { User } from '../../api/HttpClient';
+import { SortStore } from '../../store/SortStore';
 
 type TableBodyProps = {
   columns: TColumns;
+  sortStore: SortStore,
   users: User[],
 };
 
@@ -20,6 +22,7 @@ type RenderItemParams = {
 export const TableBody: React.FunctionComponent<TableBodyProps> =
   observer(({
               columns,
+              sortStore,
               users,
             }: TableBodyProps) => {
 
@@ -38,6 +41,7 @@ export const TableBody: React.FunctionComponent<TableBodyProps> =
                     item={item}
                     i={i}
                     columnName={columnName}
+                    sortStore={sortStore}
                   />
                 );
               })
