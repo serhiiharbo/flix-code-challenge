@@ -27,8 +27,8 @@ export class CacheUsers extends CacheTtl {
   protected static async getUsersRoutine(forceFetch?: boolean): Promise<User[]> {
     try {
       const isTTLExpired: boolean = await CacheUsers.isTTLExpired();
-      console.log(1, { forceFetch, isTTLExpired });
 
+      // First call || Forced pull HttpClient.fetchUsers if previous errored
       if (forceFetch || isTTLExpired) {
         const users: User[] = await HttpClient.fetchUsers();
         await CacheUsers.setUsersToAsyncStorage(users);
@@ -36,10 +36,9 @@ export class CacheUsers extends CacheTtl {
 
         return users;
       } else {
-        const users: User[] | null | any = await CacheUsers.getUsersFromAsyncStorage();
+        const users: User[] | null = await CacheUsers.getUsersFromAsyncStorage();
 
-        // Re-fetch users from HttpClient if error occurred during fetching from Async Storage or
-        // parsing json
+        // Re-fetch users from HttpClient if error occurred during fetching from Async Storage or parsing json
         return users || CacheUsers.getUsersRoutine(true);
       }
     } catch (e: unknown) {
