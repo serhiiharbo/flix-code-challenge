@@ -12,10 +12,9 @@ export class SortStore {
 
   constructor() {
     makeAutoObservable(this);
-    // this.getSort();
   }
 
-  async getSort() {
+  public async getSort(): Promise<void> {
     try {
       console.log(11, 'GET SORT');
 
@@ -34,7 +33,7 @@ export class SortStore {
     }
   }
 
-  async setSort(columnName: keyof User): Promise<void> {
+  public async setSort(columnName: keyof User): Promise<void> {
     try {
       console.log(112, 'SET SORT');
       const newSortParams: TSort = {

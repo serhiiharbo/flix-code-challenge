@@ -1,15 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ASKeys } from './constants';
 
-// abstract class TtlPersistorInterface {
-//   static readonly ttlKey: string;
-//
-//   private static getTTLStampValue(): string;
-//
-//   private static setTTL: Function;
-//   private static getTTL: Function;
-// }
-
 export class CacheTtl {
   static readonly #ttlKey: string = ASKeys.Ttl;
 
@@ -23,14 +14,14 @@ export class CacheTtl {
     return (now + cacheExpirationTimeout).toString();
   }
 
-  private static async getTTL(): Promise<number> {
+  public static async getTTL(): Promise<number | null> {
     try {
       const ttlASValue: string | null = await AsyncStorage.getItem(CacheTtl.#ttlKey);
-      const ttlStamp: number = ttlASValue ? Number(ttlASValue) : 0;
+      const ttlStamp: number = ttlASValue ? Number(ttlASValue) : null;
 
       return Promise.resolve(ttlStamp);
     } catch (e: unknown) {
-      return Promise.resolve(0);
+      return Promise.resolve(null);
     }
   }
 
@@ -48,9 +39,7 @@ export class CacheTtl {
     const now: number = Date.now();
     const ttlStamp: number = await CacheTtl.getTTL();
 
-    console.warn('ttlStamp', ttlStamp);
-    console.warn('now', now);
-    console.warn('result', now > ttlStamp);
+    console.log({ ttlStamp, now, 'now > ttlStamp': now > ttlStamp });
 
 
     return Promise.resolve(now > ttlStamp);

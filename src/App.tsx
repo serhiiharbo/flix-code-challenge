@@ -5,6 +5,7 @@ import { API } from './api';
 import { backgroundColor } from './constants/assets.constants';
 import { Button } from './components/button/Button';
 import { TableView } from './components/table/TableView';
+import { Tll } from './components/ttl/Ttl';
 
 
 const App = (): React.JSX.Element => {
@@ -18,6 +19,7 @@ const App = (): React.JSX.Element => {
         label={'Clear AsyncStorage'}
         onPress={API.clearAsyncStorage}
       />
+      <Tll />
       <TableView />
     </SafeAreaView>
   );
