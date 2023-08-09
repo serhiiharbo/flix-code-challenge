@@ -23,4 +23,3 @@ export class HttpClient {
     return Promise.resolve(HttpClient.users);
   }
 }
-
