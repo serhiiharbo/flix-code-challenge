@@ -25,7 +25,6 @@ export const TableView: React.FunctionComponent<TTableViewProps> = observer(({ s
   const [sortParams, setSortParams]: TSortParamsState = useState<TSort>({});
 
   const { sortBy, orderBy }: TSort = sortParams;
-
   const { usersStore }: TRootStore = store;
   const { users }: UsersStore = usersStore;
 

@@ -11,6 +11,7 @@ import { AppContext } from './context/AppContext';
 const App: React.FunctionComponent = observer(() => {
   const store: TRootStore = useContext(AppContext);
 
+  // Run once on app mount
   useEffect((): void => {
     store.usersStore.getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
